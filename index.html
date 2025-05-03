@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Рулетка</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Баланс -->
+  <div class="balance">
+    <span>Баланс:</span>
+    <span id="balance-amount">300</span> 
+    <span class="star-icon">⭐</span> <!-- Эмодзи звезды -->
+  </div>
+
+  <!-- Главное меню -->
+  <div class="menu">
+    <h1>Открытие кейсов</h1>
+    <button onclick="openRoulette()">Открыть кейс</button>
+  </div>
+
+  <!-- Рулетка -->
+  <div class="roulette" id="roulette">
+    <!-- Кнопка возврата -->
+    <button class="back-btn" onclick="goBack()">←</button>
+
+    <div class="roulette-wheel">
+      <div class="arrow"></div>
+      <div id="roulette-items"></div>
+    </div>
+
+    <button id="open-case-btn" onclick="startRoulette()">Открыть кейс -50 ⭐</button>
+    <h2 id="result">Готов к удаче?</h2>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
