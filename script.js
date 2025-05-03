@@ -1,8 +1,9 @@
 let spinning = false;
-let balance = 300;
+let balance = parseInt(localStorage.getItem('balance')) || 300;
 
 const balanceAmount = document.getElementById('balance-amount');
 const resultText = document.getElementById('result');
+balanceAmount.innerText = balance;
 
 const prizes = [
   { value: 5, class: "common", chance: 70 },
@@ -10,6 +11,10 @@ const prizes = [
   { value: 100, class: "very-rare", chance: 4.5 },
   { value: 500, class: "ultra-rare", chance: 0.5 }
 ];
+
+function saveBalance() {
+  localStorage.setItem('balance', balance);
+}
 
 function openRoulette() {
   document.querySelector('.menu').style.display = 'none';
@@ -37,6 +42,7 @@ function startRoulette() {
   spinning = true;
   balance -= 50;
   balanceAmount.innerText = balance;
+  saveBalance();
   resultText.innerText = 'Крутим...';
 
   const container = document.getElementById('roulette-items');
@@ -46,7 +52,6 @@ function startRoulette() {
   const totalItems = 100;
   const items = [];
 
-  // Добавляем элементы рулетки
   for (let i = 0; i < totalItems; i++) {
     const prize = getRandomPrize();
     const item = document.createElement('div');
@@ -56,10 +61,9 @@ function startRoulette() {
     items.push({ element: item, prize });
   }
 
-  const visibleItems = 3; // ширина рулетки / itemWidth = 300/100 = 3
+  const visibleItems = 3;
   const centerIndex = Math.floor(visibleItems / 2);
-  const stopIndex = Math.floor(totalItems / 2 + Math.random() * 10 - 5); // Рандомная позиция в середине
-
+  const stopIndex = Math.floor(totalItems / 2 + Math.random() * 10 - 5);
   const scrollTo = stopIndex * itemWidth - centerIndex * itemWidth;
 
   container.style.transition = 'none';
@@ -76,7 +80,7 @@ function startRoulette() {
     resultText.innerText = `Вы выиграли: ${selected.prize.value}★!`;
     balance += selected.prize.value;
     balanceAmount.innerText = balance;
+    saveBalance();
     spinning = false;
   }, 3700);
 }
-
